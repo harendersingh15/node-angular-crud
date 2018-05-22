@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,36 +8,64 @@
     <title>Person Database</title>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
     <style>
-    label{
-        width: 80px;
-        display: inline-block;
-        font: 17px  calibri;
-    }
-    button{
-        font: 17px calibri;
-        padding: 5px 10px;
-    }
-    button[type="submit"]{
-        margin-right: 20px;
-    }
-    input{
-        padding: 5px;
-    }
+        label {
+            width: 80px;
+            display: inline-block;
+            font: 17px calibri;
+        }
+        
+        button {
+            font: 17px calibri;
+            padding: 5px 10px;
+        }
+        
+        button[type="submit"] {
+            margin-right: 20px;
+        }
+        
+        input {
+            padding: 5px;
+        }
     </style>
 </head>
-<body>
-    <form action="">
-        <label for="fName">Firstname :</label>
-        <input id="fName" type="text"> <br><br>
-        <label for="lName">Lastname :</label>
-        <input id="lName" type="text"><br><br>
-        <label for="contact">Mobile :</label>
-        <input id="contact" type="text"><br><br>
-        <label for="dsfsdfage">Age :</label>
-        <input id="age" type="text"> <br><br>
-        <button type="submit">Submit</button>
-        <button type="reset">Reset</button>
-    
-    </form>
+
+<body ng-app="app">
+    <div ng-controller="AppController">
+        <div>{{message}}</div>
+        <form action="">
+            <label for="fName">Firstname :</label>
+            <input id="fName" type="text">
+            <br>
+            <br>
+            <label for="lName">Lastname :</label>
+            <input id="lName" type="text">
+            <br>
+            <br>
+            <label for="contact">Mobile :</label>
+            <input id="contact" type="text">
+            <br>
+            <br>
+            <label for="dsfsdfage">Age :</label>
+            <input id="age" type="text">
+            <br>
+            <br>
+            <button type="submit">Submit</button>
+            <button type="reset">Reset</button>
+
+        </form>
+    </div>
 </body>
+
+<script>
+    angular.module('app', []);
+
+    angular.module('app').controller('AppController', AppController);
+
+    AppController.$inject = ['$scope'];
+
+    function AppController($scope) {
+        $scope.message = 'Hello First Angular Page!!!'
+    }
+</script>
+
 </html>
