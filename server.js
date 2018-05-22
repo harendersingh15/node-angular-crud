@@ -11,7 +11,9 @@ const portNumber = 8081;
 //mounting the app routes
 appRouter(app);
 
-
+app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/index.html');
+})
 
 mongoose.connect(mongoDB, () => {
     app.listen(portNumber, () => {
