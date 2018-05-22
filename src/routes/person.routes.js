@@ -6,7 +6,7 @@ const PersonModel = require('../model/person.model');
 
 personRoutes.get('/test', (req, res) => {
 
-    var person=new personRoutes();
+    //var person=new personRoutes();
     
     res.send('test person routes');
 });
