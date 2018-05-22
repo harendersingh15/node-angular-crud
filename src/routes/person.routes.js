@@ -18,6 +18,17 @@ personRoutes.get('/getAllPerson', (req, res) => {
     });
 });
 
+personRoutes.post('/createPerson',(req,res) => {
+    PersonModel.create({"firstName":"fName", "lastName": "lName", "mobile":"99999999", "age": 99},
+    (err,result) => {
+        if(err)
+        {
+            console.log(err);
+            res.send(err);
+        }
+        res.send(result);
+    });
+});
 
 
 
