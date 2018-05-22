@@ -1,7 +1,8 @@
 {
-  "name": "sample",
+
+  "name": "angular-crud",
   "version": "1.0.0",
-  "description": "sample project",
+  "description": "Angular CURD operations",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
