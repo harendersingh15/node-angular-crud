@@ -21,4 +21,28 @@ personRoutes.get('/getAllPerson', (req, res) => {
 
 
 
+personRoutes.post('/updateperson', (req, res) => {
+    
+    let object1={
+        "firstName":"dsafsa",
+        "lastName":"sharma",
+        "mobile":"8871437849",
+        "age":"23"
+        
+        
+    };
+    
+    PersonModel.create(object1,{"firstName":"kamesh","lastName":"sobrajani"},function(err,data){
+        if(err)
+        {
+            console.log(err);
+            res.send(err);
+        }
+        res.send(data);
+    });
+    
+    
+});
+
+
 module.exports = personRoutes;
