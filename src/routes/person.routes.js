@@ -37,7 +37,16 @@ personRoutes.post('/createPerson',(req,res) => {
     });
 });
 
+personRoutes.post('/delete',(req,res) => {
+    let id = req.body.id;
+    PersonModel.findByIdAndRemove({_id: id}).exec((error, result)=>{
+        if(error){
+            return res.status(500).send(error);
+        }
+        res.send(result);
 
+    });
+})
 
 
 

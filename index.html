@@ -28,12 +28,9 @@
         }
         table{
             margin-bottom: 20px;
+            width: 75%;
         }
-        button[type="button"]{
-            margin-bottom: 30px;
-        }
-        table, td, th{
-            width: 50%;
+        table, td, th{            
             border: 1px solid #333;
             border-collapse: collapse;
         }
@@ -53,6 +50,7 @@
                 <th>LastName</th>
                 <th>Contact</th>
                 <th>Age</th>
+                <th>Actions</th>
             </thead>
             <tbody>
                 <tr ng-repeat="x in myData">
@@ -60,13 +58,14 @@
                     <td> {{x.lastName}} </td>
                     <td> {{x.mobile}} </td>
                     <td> {{x.age}} </td>
+                    <td>
+                        <button type="button">U</button>
+                        <button type="button" ng-click="onDeleteClick()" value="delete">D</button>
+                    </td>
                 </tr>
             </tbody>
         </table>
-
-        <button type="button" ng-click="getData()">Get Data</button>
-
-        <form>
+         <form name="personform" id="personform" ng-submit="handleSubmit()">
             <label for="fName">Firstname :</label>
             <input ng-model="fName" id="fName" type="text">
             <br>
@@ -84,7 +83,7 @@
             <br>
             <br>
             <button type="button" ng-click="onSubmitClick()" value="Submit">Submit</button>
-            <button type="reset">Reset</button>
+            
 
         </form>
     </div>
@@ -100,6 +99,10 @@
     function AppController($scope, $http) {
       
 
+      function init(){
+        $scope.getData();
+      }
+
         $scope.message = 'Hello First Angular Page!!!'
 
         $scope.onSubmitClick = function(){
@@ -109,12 +112,25 @@
         data:{"firstName": $scope.fName , "lastName": $scope.lName , "mobile": $scope.contact , "age": $scope.age}
 
     }).then(function mySuccess(response) {
-        console.log(data);
+        $scope.getData();
         $scope.myWelcome = response.data;
+        $scope.fName = "";
+        $scope.lName = "";
+        $scope.contact = "";
+        $scope.age = "";
     }, function myError(response) {
         $scope.myWelcome = response.statusText;
+       
     });
         }
+
+        
+
+
+
+
+        //arr.push working
+        //create delete and update link
 
     $scope.getData = function(){
         $http({
@@ -127,6 +143,7 @@
     });
     }
 
+    init();
     }
 </script>
 
