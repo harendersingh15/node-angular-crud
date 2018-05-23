@@ -32,24 +32,24 @@
 <body ng-app="app">
     <div ng-controller="AppController">
         <div>{{message}}</div>
-        <form action="">
+        <form>
             <label for="fName">Firstname :</label>
-            <input id="fName" type="text">
+            <input ng-model="fName" id="fName" type="text">
             <br>
             <br>
             <label for="lName">Lastname :</label>
-            <input id="lName" type="text">
+            <input ng-model="lName" id="lName" type="text">
             <br>
             <br>
             <label for="contact">Mobile :</label>
-            <input id="contact" type="text">
+            <input ng-model="contact" id="contact" type="text">
             <br>
             <br>
             <label for="dsfsdfage">Age :</label>
-            <input id="age" type="text">
+            <input ng-model="age" id="age" type="text">
             <br>
             <br>
-            <button type="submit">Submit</button>
+            <button type="button" ng-click="onSubmitClick()" value="Submit">Submit</button>
             <button type="reset">Reset</button>
 
         </form>
@@ -61,10 +61,26 @@
 
     angular.module('app').controller('AppController', AppController);
 
-    AppController.$inject = ['$scope'];
+    AppController.$inject = ['$scope', '$http'];
 
-    function AppController($scope) {
+    function AppController($scope, $http) {
+      
+
         $scope.message = 'Hello First Angular Page!!!'
+
+        $scope.onSubmitClick = function(){
+            $http({
+        method : "POST",
+        url : "/api/person/createPerson",
+        data:{"firstName": $scope.fName , "lastName": $scope.lName , "mobile": $scope.contact , "age": $scope.age}
+
+    }).then(function mySuccess(response) {
+        console.log(data);
+        $scope.myWelcome = response.data;
+    }, function myError(response) {
+        $scope.myWelcome = response.statusText;
+    });
+        }
     }
 </script>
 

@@ -4,13 +4,10 @@ const personRoutes = express.Router();
 const PersonModel = require('../model/person.model');
 
 
-personRoutes.get('/test', (req, res) => {
 
-    //var person=new personRoutes();
-    
+personRoutes.get('/test', (req, res) => {
     res.send('test person routes');
 });
-
 
 personRoutes.get('/getAllPerson', (req, res) => {
     PersonModel.find({}).lean().exec((error, result)=>{
@@ -18,13 +15,23 @@ personRoutes.get('/getAllPerson', (req, res) => {
     });
 });
 
+
+
+
 personRoutes.post('/createPerson',(req,res) => {
-    PersonModel.create({"firstName":"fName", "lastName": "lName", "mobile":"99999999", "age": 99},
-    (err,result) => {
-        if(err)
-        {
-            console.log(err);
-            res.send(err);
+    console.log(req.body);
+    let obj = {
+        firstName : req.body.firstName,
+        lastName : req.body.lastName,
+        mobile : req.body.mobile,
+        age : req.body.age
+
+    }
+
+    let data = new PersonModel(obj);
+    data.save((error, result)=>{
+        if(error){
+            return res.status(500).send(error);
         }
         res.send(result);
     });
@@ -32,28 +39,6 @@ personRoutes.post('/createPerson',(req,res) => {
 
 
 
-personRoutes.post('/updateperson', (req, res) => {
-    
-    let object1={
-        "firstName":"dsafsa",
-        "lastName":"sharma",
-        "mobile":"8871437849",
-        "age":"23"
-        
-        
-    };
-    
-    PersonModel.update(object1,{"firstName":"kamesh","lastName":"sobrajani"},function(err,data){
-        if(err)
-        {
-            console.log(err);
-            res.send(err);
-        }
-        res.send(data);
-    });
-    
-    
-});
 
 
 module.exports = personRoutes;
