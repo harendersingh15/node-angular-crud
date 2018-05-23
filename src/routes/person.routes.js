@@ -43,7 +43,7 @@ personRoutes.post('/updateperson', (req, res) => {
         
     };
     
-    PersonModel.create(object1,{"firstName":"kamesh","lastName":"sobrajani"},function(err,data){
+    PersonModel.update(object1,{"firstName":"kamesh","lastName":"sobrajani"},function(err,data){
         if(err)
         {
             console.log(err);
