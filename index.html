@@ -26,12 +26,46 @@
         input {
             padding: 5px;
         }
+        table{
+            margin-bottom: 20px;
+        }
+        button[type="button"]{
+            margin-bottom: 30px;
+        }
+        table, td, th{
+            width: 50%;
+            border: 1px solid #333;
+            border-collapse: collapse;
+        }
+        td, th{
+            padding: 5px;
+
+        }
     </style>
 </head>
 
 <body ng-app="app">
     <div ng-controller="AppController">
         <div>{{message}}</div>
+        <table>
+            <thead>
+                <th>FirstName</th>
+                <th>LastName</th>
+                <th>Contact</th>
+                <th>Age</th>
+            </thead>
+            <tbody>
+                <tr ng-repeat="x in myData">
+                    <td>{{x.firstName}} </td>
+                    <td> {{x.lastName}} </td>
+                    <td> {{x.mobile}} </td>
+                    <td> {{x.age}} </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <button type="button" ng-click="getData()">Get Data</button>
+
         <form>
             <label for="fName">Firstname :</label>
             <input ng-model="fName" id="fName" type="text">
@@ -81,6 +115,18 @@
         $scope.myWelcome = response.statusText;
     });
         }
+
+    $scope.getData = function(){
+        $http({
+        method : "GET",
+        url : "/api/person/getAllPerson"
+    }).then(function mySuccess(response) {
+        $scope.myData = response.data;
+    }, function myError(response) {
+        $scope.myData = response.statusText;
+    });
+    }
+
     }
 </script>
 
