@@ -9,6 +9,7 @@ const app = express();
 const portNumber = 8081;
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(express.static(__dirname + '/public'));
 //mounting the app routes
 appRouter(app);
 

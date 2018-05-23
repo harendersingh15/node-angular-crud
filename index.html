@@ -7,38 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Person Database</title>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-    <style>
-        label {
-            width: 80px;
-            display: inline-block;
-            font: 17px calibri;
-        }
-        
-        button {
-            font: 17px calibri;
-            padding: 5px 10px;
-        }
-        
-        button[type="submit"] {
-            margin-right: 20px;
-        }
-        
-        input {
-            padding: 5px;
-        }
-        table{
-            margin-bottom: 20px;
-            width: 75%;
-        }
-        table, td, th{            
-            border: 1px solid #333;
-            border-collapse: collapse;
-        }
-        td, th{
-            padding: 5px;
 
-        }
-    </style>
+    <link rel="stylesheet" href="/style.css"> 
 </head>
 
 <body ng-app="app">
@@ -65,7 +35,7 @@
                 </tr>
             </tbody>
         </table>
-         <form name="personform" id="personform" ng-submit="handleSubmit()">
+        <form name="personform" id="personform" ng-submit="handleSubmit()">
             <label for="fName">Firstname :</label>
             <input ng-model="fName" id="fName" type="text">
             <br>
@@ -83,68 +53,10 @@
             <br>
             <br>
             <button type="button" ng-click="onSubmitClick()" value="Submit">Submit</button>
-            
+
 
         </form>
     </div>
+    <script src="/ang_script.js"></script>
 </body>
-
-<script>
-    angular.module('app', []);
-
-    angular.module('app').controller('AppController', AppController);
-
-    AppController.$inject = ['$scope', '$http'];
-
-    function AppController($scope, $http) {
-      
-
-      function init(){
-        $scope.getData();
-      }
-
-        $scope.message = 'Hello First Angular Page!!!'
-
-        $scope.onSubmitClick = function(){
-            $http({
-        method : "POST",
-        url : "/api/person/createPerson",
-        data:{"firstName": $scope.fName , "lastName": $scope.lName , "mobile": $scope.contact , "age": $scope.age}
-
-    }).then(function mySuccess(response) {
-        $scope.getData();
-        $scope.myWelcome = response.data;
-        $scope.fName = "";
-        $scope.lName = "";
-        $scope.contact = "";
-        $scope.age = "";
-    }, function myError(response) {
-        $scope.myWelcome = response.statusText;
-       
-    });
-        }
-
-        
-
-
-
-
-        //arr.push working
-        //create delete and update link
-
-    $scope.getData = function(){
-        $http({
-        method : "GET",
-        url : "/api/person/getAllPerson"
-    }).then(function mySuccess(response) {
-        $scope.myData = response.data;
-    }, function myError(response) {
-        $scope.myData = response.statusText;
-    });
-    }
-
-    init();
-    }
-</script>
-
 </html>

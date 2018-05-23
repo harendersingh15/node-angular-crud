@@ -1,0 +1,33 @@
+label {
+    width: 80px;
+    display: inline-block;
+    font: 17px calibri;
+}
+
+button {
+    font: 17px calibri;
+    padding: 5px 10px;
+}
+
+button[type="submit"] {
+    margin-right: 20px;
+}
+
+input {
+    padding: 5px;
+}
+
+table {
+    margin-bottom: 20px;
+    width: 75%;
+}
+
+table, td, th {
+    border: 1px solid #333;
+    border-collapse: collapse;
+}
+
+td,th {
+    padding: 5px;
+
+}
