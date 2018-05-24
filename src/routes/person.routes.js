@@ -48,6 +48,24 @@ personRoutes.post('/delete',(req,res) => {
     });
 })
 
+personRoutes.post('/updatePerson', (req, res) => {
+    let id = req.body.id;
+    let firstName=req.body.firstName;
+
+    PersonModel.updateOne({ _id:id }, { firstName:firstName },
+        (err, result) => {
+            if(err){
+            console.log();}
+           
+           
+            res.send(result);
+
+            
+
+        })
+        
+        
+});
 
 
 module.exports = personRoutes;
