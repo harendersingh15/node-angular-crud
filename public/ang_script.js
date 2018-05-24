@@ -44,4 +44,25 @@ angular.module('app', []);
         }
 
         $scope.getData();
+
+        $scope.onDeleteClick = function(dat){
+            console.log("siv",dat);
+            $http({
+                method:"DELETE",
+                url:"/api/person/delete/" + dat
+                // data: {
+                //     "id": dat
+                // }
+                        
+                }).then((response)=>{
+            //console.log(response);
+            $scope.getData();
+        },(err) => {
+            $scope.myErr = response.statusText;        
+        });
+
     }
+    }
+
+    
+    

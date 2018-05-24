@@ -30,29 +30,31 @@
                     <td> {{x.age}} </td>
                     <td>
                         <button type="button">U</button>
-                        <button type="button" ng-click="onDeleteClick()" value="delete">D</button>
+                        <button type="button" ng-click="onDeleteClick(x._id)" value="delete">D</button>
                     </td>
                 </tr>
             </tbody>
         </table>
         <form name="personform" id="personform" ng-submit="handleSubmit()">
             <label for="fName">Firstname :</label>
-            <input ng-model="fName" id="fName" type="text">
+            <input ng-model="fName" id="fName" type="text" placeholder="Enter Firstname here" required>
             <br>
             <br>
             <label for="lName">Lastname :</label>
-            <input ng-model="lName" id="lName" type="text">
+            <input ng-model="lName" id="lName" type="text" placeholder="Enter Lastname here" required>
             <br>
             <br>
             <label for="contact">Mobile :</label>
-            <input ng-model="contact" id="contact" type="text">
+            <input ng-model="contact" id="contact" type="tel" maxlength="10" placeholder="Enter Contact number"  required>
             <br>
             <br>
             <label for="dsfsdfage">Age :</label>
-            <input ng-model="age" id="age" type="text">
+            <input ng-model="age" id="age" type="number" max="110" placeholder="Enter Age here" required>
             <br>
             <br>
             <button type="button" ng-click="onSubmitClick()" value="Submit">Submit</button>
+
+            {{ServerResponse}}
 
 
         </form>
