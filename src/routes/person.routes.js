@@ -2,6 +2,7 @@ const express = require('express');
 
 const personRoutes = express.Router();
 const PersonModel = require('../model/person.model');
+const ProfessionalModel=require('../repository/professional-detail');
 
 
 
@@ -19,7 +20,8 @@ personRoutes.get('/getAllPerson', (req, res) => {
 
 
 personRoutes.post('/createPerson',(req,res) => {
-    console.log(req.body);
+
+
     let obj = {
         firstName : req.body.firstName,
         lastName : req.body.lastName,
@@ -33,7 +35,10 @@ personRoutes.post('/createPerson',(req,res) => {
         if(error){
             return res.status(500).send(error);
         }
-        res.send(result);
+     result1=  ProfessionalModel.saveUser(result._id,req.body.companyName,req.body.deptNo);
+      console.log(result1);
+     res.send(result);
+    
     });
 });
 
@@ -66,6 +71,6 @@ personRoutes.post('/updatePerson', (req, res) => {
         
         
 });
-
+personRoutes.post('/createPersonField',(req,res) => {})
 
 module.exports = personRoutes;
