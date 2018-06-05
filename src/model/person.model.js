@@ -15,6 +15,6 @@ const PersonSchema = new Schema({
     age: Number
 })
 
-const PersonModel = mongoose.model('Person', PersonSchema, 'Person');//actual model is created here to write into db
+const PersonModel = mongoose.model('Person', PersonSchema, 'Person'); //actual model is created here to write into db
 
 module.exports = PersonModel;
