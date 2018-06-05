@@ -3,6 +3,7 @@ const express = require('express');
 const personRoutes = express.Router();
 const PersonModel = require('../model/person.model');
 const ProfessionalModel=require('../repository/professional-detail');
+const User = require('../model/user')
 
 
 
@@ -11,7 +12,7 @@ personRoutes.get('/test', (req, res) => {
 });
 
 personRoutes.get('/getAllPerson', (req, res) => {
-    PersonModel.find({}).lean().exec((error, result)=>{
+    PersonModel.find({}).lean().exec((error, result) => {
         res.send(result);
     });
 });
@@ -20,13 +21,11 @@ personRoutes.get('/getAllPerson', (req, res) => {
 
 
 personRoutes.post('/createPerson',(req,res) => {
-
-
     let obj = {
-        firstName : req.body.firstName,
-        lastName : req.body.lastName,
-        mobile : req.body.mobile,
-        age : req.body.age
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        mobile: req.body.mobile,
+        age: req.body.age
 
     }
     const companyName = req.body.companyName;
@@ -34,8 +33,8 @@ personRoutes.post('/createPerson',(req,res) => {
 
 
     let data = new PersonModel(obj);
-    data.save((error, result)=>{
-        if(error){
+    data.save((error, result) => {
+        if (error) {
             return res.status(500).send(error);
         }
       ProfessionalModel.saveUser(result._id,companyName,deptNo, (error, cbResult)=>{
@@ -65,17 +64,77 @@ personRoutes.post('/createPerson',(req,res) => {
     });
 });
 
-personRoutes.delete('/delete/:id',(req,res) => {
+personRoutes.delete('/delete/:id', (req, res) => {
     let id = req.params.id;
     console.log(id);
-    PersonModel.deleteOne({_id: id}).exec((error, result)=>{
-        if(error){
+    PersonModel.deleteOne({ _id: id }).exec((error, result) => {
+        if (error) {
             return res.status(500).send(error);
         }
         res.send(result);
 
     });
+});
+
+personRoutes.put('/update/', (req, res) => {
+
+    let id = req.body.id;
+    let obj = {
+        lastName: req.body.lastName,
+        mobile: req.body.mobile,
+        mobile1: req.body.mobile
+    }
+    PersonModel.updateOne({ _id: id }, obj,
+        (err, result) => {
+            if (err) {
+                console.log(err);
+            }
+            res.send(result);
+
+        });
+
+});
+
+personRoutes.post('/login', (req,res) =>{
+    let username = req.body.username;
+    let password = req.body.password;
+
+    User.findOne({username:username, password:password},(err,user) =>{
+        if(err){
+            console.log(err);
+            return res.status(500).send(err);
+        }
+
+        if(!user){
+            return res.status(404).send(err);
+        }
+
+        return res.status(200).send(user);
+    })
 })
+personRoutes.post('/register', (req,res) =>{
+    let username = req.body.username;
+    let password = req.body.password;
+    let firstName = req.body.firstName;
+    let lastName = req.body.lastName;
+    let mobile = req.body.mobile;
+
+    let newuser = new User();
+    newuser.username = username;
+    newuser.password = password;
+    newuser.firstName = firstName;
+    newuser.lastName = lastName;
+    newuser.mobile = mobile;
+    
+     newuser.save((err,savedUser) => {
+         if(err)
+         {
+             return res.status(500).send(err);
+         }
+         res.send(savedUser);
+
+     });
+});
 
 personRoutes.post('/updatePerson', (req, res) => {
     let id = req.body.id;

@@ -8,7 +8,7 @@
     <title>Person Database</title>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 
-    <link rel="stylesheet" href="/style.css"> 
+    <link rel="stylesheet" href="/style.css">
 </head>
 
 <body ng-app="app">
@@ -25,11 +25,11 @@
             <tbody>
                 <tr ng-repeat="x in myData">
                     <td>{{x.firstName}} </td>
-                    <td> {{x.lastName}} </td>
-                    <td> {{x.mobile}} </td>
+                    <td> <input type="text" ng-model="x.lastName"> </td>
+                    <td> <input type="tel" ng-model="x.mobile"> </td>
                     <td> {{x.age}} </td>
                     <td>
-                        <button type="button">U</button>
+                        <button type="button" ng-click="onUpdateClick(x._id,x.lastName,x.mobile)">U</button>
                         <button type="button" ng-click="onDeleteClick(x._id)" value="delete">D</button>
                     </td>
                 </tr>
@@ -45,20 +45,19 @@
             <br>
             <br>
             <label for="contact">Mobile :</label>
-            <input ng-model="contact" id="contact" type="tel" maxlength="10" placeholder="Enter Contact number"  required>
+            <input ng-model="contact" id="contact" type="tel" maxlength="10" placeholder="Enter Contact number" required>
             <br>
             <br>
             <label for="dsfsdfage">Age :</label>
             <input ng-model="age" id="age" type="number" max="110" placeholder="Enter Age here" required>
             <br>
             <br>
-            <button type="button" ng-click="onSubmitClick()" value="Submit">Submit</button>
-
-            {{ServerResponse}}
+            <button type="button" ng-click="onSubmitClick()" value="Submit">Submit</button> {{ServerResponse}}
 
 
         </form>
     </div>
     <script src="/ang_script.js"></script>
 </body>
+
 </html>
