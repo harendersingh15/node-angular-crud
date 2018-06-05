@@ -29,16 +29,39 @@ personRoutes.post('/createPerson',(req,res) => {
         age : req.body.age
 
     }
+    const companyName = req.body.companyName;
+    const deptNo = req.body.deptNo;
+
 
     let data = new PersonModel(obj);
     data.save((error, result)=>{
         if(error){
             return res.status(500).send(error);
         }
-     result1=  ProfessionalModel.saveUser(result._id,req.body.companyName,req.body.deptNo);
-      console.log(result1);
-     res.send(result);
-    
+      ProfessionalModel.saveUser(result._id,companyName,deptNo, (error, cbResult)=>{
+         if(error){
+          return res.status(500).send(error);
+             
+         }
+
+         
+         result = result.toObject();
+
+         
+
+         //logic to combine the result personDetail + cbResult
+         result["companyName"]=cbResult.companyName;
+         result["deptNo"]=cbResult.deptNo;
+ delete result._id;
+// let object1={
+//     "_id":cbResult._id
+//     "name":result.
+// }
+
+    console.log(result);
+         res.send(result);
+         
+     });  
     });
 });
 

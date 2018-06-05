@@ -4,21 +4,20 @@ let ProfessionalModel=require('../model/professional.model');
 class PersonProfessionalDetail 
 {
 
-    static saveUser(personid,companyname,depno){
+    static saveUser(personid,companyname,depno, callback){
 
-        ProfessionalModel.create({'_id':personid,'companyName':companyname,'deptNo':depno},
-        (err,result)=>
+        ProfessionalModel.create({'_id':personid,'companyName':companyname,'deptNo':depno},        (err,result)=>
         {
             if(err)
             {
             
-                return err;
+                callback(err, null);
 
             }
             
-            return result;
+            return callback(null, result);
 
-        });
+        })
     }
 }
 module.exports=PersonProfessionalDetail;
